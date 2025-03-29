@@ -78,18 +78,21 @@ def list_definitions(llm, input_text, model="mistral-large-latest"):
 def list_explanations(llm, input_text, model="mistral-large-latest"):
     try:
         prompt = f"""Tu es un spécialiste des dyslexique depuis 20 ans. 
+            Pour rappel une rhèse est un groupe de mots d'une phrase qui porte un sens et cadence le discours.
+            Les rhèses que tu vas produire ici seront courtes pour être adaptées à la lecture d'un collégien dyslexique.
+
             Je vais te fournir un texte et tu vas détecter :
             - les mots complexes pour des collégiens dyslexiques (ex. : "phénomène", "scientifique")
             - les expressions (ex. : "tombé dans les pommes", "mis en vers")
             - les références à une entité nommée, par exemple par un pronom (ex. : "il", "la") ou
             une expression (ex. : "la plupart", "les autres")
 
-            Tu va me fournir le texte résultat en respectant le format markdown suivant [mot détecté](complément).
+            Tu vas me fournir le texte résultat en respectant le format markdown suivant [mot détecté](complément).
             Tu renseigneras le complément de la manière suivante :
             - Pour les mots complexes tu donneras une définition simple et courte.
             - Pour les expressions tu donneras une reformulation de la partie de la phrase concernée
             mais sans utiliser d'expression.
-            - Pour les références à une entité nommée tu reformuleras la rhèse en 
+            - Pour les références à une entité nommée tu reformuleras la rhèse à laquelle il appartient en 
             remplacant la référence par le nom de l'entité correspondante
             
             L'ensemble respectera les contraintes markdown.
