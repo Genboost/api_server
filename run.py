@@ -1,6 +1,7 @@
 import os
 from langchain_mistralai.chat_models import ChatMistralAI
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 from rhese import decoupe_rhese
 
 # Get the environment variables
@@ -37,6 +38,7 @@ llm = ChatMistralAI(model="mistral-large-latest", temperature=0, max_retries=2,
                     api_key=os.getenv("MISTRAL_API_KEY"))
 
 app = Flask(__name__)
+CORS(app)  # Enable CORS for all routes
 
 @app.route('/')
 def index():
@@ -46,7 +48,6 @@ def index():
 def get_rhese ():
     # Récupérer le texte envoyé dans le corps de la requête
     data = request.get_json()
-    
     # Vérifier si le texte est présent
     if 'text' not in data:
         return jsonify({'error': 'Aucun texte fourni'}), 400
