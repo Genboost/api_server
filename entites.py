@@ -2,18 +2,74 @@ from responseLLM import responseLLM
 
 def list_entites(llm, input_text, model="mistral-large-latest"):
     try:
-        prompt = f"""tu es un spécialiste des dyslexique depuis 20 ans. 
-            Voici un texte : 
-            {input_text}
-            Réécris moi le texte selon la manière suivante : les entités nommés seront entre crochets,
-            et tu fournis l'explication ensuite. L'ensemble respectera les contraintes markdown
-            [entité nommé](explication),les explications seront là pour aider les dys concernant les entités
-            nommés qui sont compliqués à comprendre pour un dysléxique.
-            Retourne ta réponse sous la forme d'un dictionnaire json avec comme clé response"""
+        prompt = f"""Tu es un spécialiste des dyslexiques depuis 20 ans. 
+            Je vais te fournir un texte et tu vas identifier les entités nommées pour pouvoir les indiquer
+            aux dyslexiques lorsqu'elles sont référencées par des pronoms ou des références.
+            Tu ne dois pas modifier le texte, mais juste identifier les entités nommées et les références.
 
-        rhese_output = responseLLM(llm, model, prompt)
+            Tu va me fournir le texte résultat selon la manière suivante :
+            - Les entités nommés que tu auras identifiées seront entre crochets avec le nom de l'entité ensuite
+            - Lorsque tu as une référence à une entité nommée, tu vas également la mettre entre crochets et indiquer
+            ensuite le nom de l'entité. En utilisant le même nom que lors de l'identification de l'entité.
+            L'ensemble respectera les contraintes markdown [entité nommé](nom de l'entité) ou [référence](nom de l'entité).
+            Tu ne dois pas faire de résumé, tu dois juste identifier les entités nommées et les références.
+            Attention, tu ne dois pas identifier inutilement les entités nommées si elles ne sont pas référencées
+            par des pronoms ou des références dans le texte qui t'est fourni. Mais ) l'inverse si tu trouves une référence
+            à une entité nommée, tu dois l'identifier.
+
+            Retourne ta réponse sous la forme d'un dictionnaire json avec comme clé response.
+            Voici plusieurs exemples de réponse :
+            
+            {{"response": "[Le chat](le chat) est sur le canapé. [Il](le chat) est très mignon, la 
+            [jeune femme](jeune femme) [le](le chat) caresse."}}
+
+            {{"response": "[Marie](Marie) et [Paul](Paul) sont amis. [Ils](Marie et Paul) se
+            rencontrent souvent. [Elle](Marie) aime beaucoup [lui](Paul)."}}
+
+            {{"response": "Les Fables choisies, mises en vers par M. de La Fontaine, appelées simplement
+            [Fables de La Fontaine](Fables de La Fontaine), sont trois recueils regroupant deux cent
+            quarante-trois fables allégoriques publiés par [Jean de La Fontaine](Jean de La Fontaine)
+            entre 1668 et 1694. [La plupart](Fables de la Fontaine), inspirées des fables d'Ésope, Babrius
+            et Phèdre, mettent en scène des animaux anthropomorphes."}}
+
+            Voici le texte à analyser :
+
+            {input_text}
+            """
+
+        response = responseLLM(llm, model, prompt)
         
-        return rhese_output
+        return response
+
+    except Exception as e:
+        print(f"Erreur lors de l'appel au LLM : {e}")
+
+
+def list_definitions(llm, input_text, model="mistral-large-latest"):
+    try:
+        prompt = f"""tu es un spécialiste des dyslexique depuis 20 ans. 
+            Je vais te fournir un texte et tu vas identifier les mots complexes pour des collégiens 
+            dyslexiques pour pouvoir les indiquer et proposer une courte définition.
+            Tu va me fournir le texte résultat selon la manière suivante : les mots complexes que tu auras
+            identifiés seront entre crochets avec l'explication ensuite.
+            L'ensemble respectera les contraintes markdown [mot complexe](explication).
+            Tu ne dois pas faire de résumé, tu dois juste identifier les mots complexes pour les collégiens
+            et les définir.
+
+            Retourne ta réponse sous la forme d'un dictionnaire json avec comme clé response.
+            Voici un exemple de réponse :
+            {{"response": "Le [scientifique](Une personne qui étudie et cherche à comprendre le monde 
+            à travers des expériences et des observations) analyse le [phénomène](Quelque chose qui se
+            passe et qu'on peut observer, comme un arc-en-ciel ou une éclipse)."}}
+            
+            Voici le texte à analyser :
+
+            {input_text}
+            """
+
+        response = responseLLM(llm, model, prompt)
+        
+        return response
 
     except Exception as e:
         print(f"Erreur lors de l'appel au LLM : {e}")

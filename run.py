@@ -3,7 +3,7 @@ from mistralai import Mistral
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from rhese import decoupe_rhese
-from entites import list_entites
+from entites import list_entites, list_definitions
 
 # Get the environment variables
 from dotenv import load_dotenv
@@ -43,7 +43,19 @@ def get_entites():
     
     input_text = data['text']
     response_text = list_entites(llm, input_text)
-    # response_text = ""
+    return response_text, 200, {'Content-Type': 'application/json'}
+
+
+@app.route('/api/get_definitions', methods=['POST'])
+def get_definitions():
+    # Récupérer le texte envoyé dans le corps de la requête
+    data = request.get_json()
+    # Vérifier si le texte est présent
+    if 'text' not in data:
+        return jsonify({'error': 'Aucun texte fourni'}), 400
+    
+    input_text = data['text']
+    response_text = list_definitions(llm, input_text)
     return response_text, 200, {'Content-Type': 'application/json'}
 
 

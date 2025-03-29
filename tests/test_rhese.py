@@ -7,7 +7,8 @@ def client():
         yield client
 
 def test_get_rhese(client):
-    input_text = "Le soleil brille aujourd'hui. Les oiseaux chantent dans les arbres. C'est une belle journée."
+    input_text = "Le soleil brille et les oiseaux chantent. Espérons que la tempête ne va pas venir."
+    
     # Corps de la requête
     data = {"text": input_text}
     
@@ -25,9 +26,9 @@ def test_get_rhese(client):
     assert response_json is not None, f"Response JSON is None. Raw response data: {response.data}"
     
     # Vérifier que la réponse contient les rhèses attendues
-    expected_rheses = [
-        "Le soleil brille aujourd'hui.",
-        "Les oiseaux chantent dans les arbres.",
-        "C'est une belle journée."
-    ]
+    expected_rheses = ["Le soleil brille",
+                       "et les oiseaux chantent.",
+                       "Espérons",
+                       "que la tempête ne va pas venir."]
+    
     assert response_json['response'] == expected_rheses, f"Unexpected response: {response_json}"
