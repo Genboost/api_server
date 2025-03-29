@@ -58,8 +58,17 @@ def get_rhese ():
 
 
 @app.route('/api/get_entites', methods=['POST'])
-def get_entites(text):
-    return get_entites(llm, text)
+def get_entites():
+    # Récupérer le texte envoyé dans le corps de la requête
+    data = request.get_json()
+    # Vérifier si le texte est présent
+    if 'text' not in data:
+        return jsonify({'error': 'Aucun texte fourni'}), 400
+    
+    input_text = data['text']
+    response_text = list_entites(llm, input_text)
+    return jsonify({'response': response_text}), 200
+
 
 if __name__ == '__main__':
     app.run(debug=True)
