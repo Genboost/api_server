@@ -1,5 +1,5 @@
 dotenv
 flask
 flask-cors
-langchain_mistralai
+mistralai
 pytest

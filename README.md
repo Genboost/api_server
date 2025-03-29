@@ -18,5 +18,5 @@ Lancement par Docker (port 5001) : `docker compose up -d --build`
 
 - dotenv
 - flask
-- langchain_mistralai
+- mistralai
 - pytest

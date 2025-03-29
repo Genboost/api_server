@@ -1,13 +1,14 @@
-def decoupe_rhese(llm, input_text):
+def decoupe_rhese(llm, input_text, model="mistral-large-latest"):
     """
     Découpe un texte en rhèses (unités de sens) en utilisant un LLM.
     
     Args:
-        llm (ChatMistralAI): Instance du modèle de langage à utiliser.
+        llm (Mistral): Instance du modèle de langage à utiliser.
         text (str): Le texte à découper.
+        model (str): Le modèle de langage à utiliser (par défaut : "mistral-large-latest").
     
     Returns:
-        list: Une liste de rhèses (unités de sens).
+        response: un json contenant une variable "response" qui contient la liste des rhèses.
     """
     try:
         # Construction du prompt pour le modèle de langage
