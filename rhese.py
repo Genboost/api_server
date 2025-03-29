@@ -1,6 +1,6 @@
 import json
 from flask import jsonify
-
+from responseLLM import responseLLM
 
 def decoupe_rhese(llm, input_text, model="mistral-large-latest"):
     """
@@ -26,21 +26,9 @@ def decoupe_rhese(llm, input_text, model="mistral-large-latest"):
     Retourne ta réponse sous la forme d'un dictionnaire json, avec une clé response, qui contient en valeur le texte
         """
 
-        # Appel au modèle de langage pour découper le texte
-        response = llm.chat.complete(
-            model= model,
-            messages = [
-                {
-                    "role": "user",
-                    "content": prompt
-                },
-            ],
-            response_format = {
-                "type": "json_object",
-            }
-        )
+        
         # Extraction de la réponse du modèle qui est sous forme de AIMessage
-        rhese_output = response.choices[0].message.content
+        rhese_output = responseLLM(llm, model, prompt)
         rhese_list = json.loads(rhese_output)
 
         return rhese_list
