@@ -1,3 +1,7 @@
+import json
+from flask import jsonify
+
+
 def decoupe_rhese(llm, input_text, model="mistral-large-latest"):
     """
     Découpe un texte en rhèses (unités de sens) en utilisant un LLM.
@@ -19,20 +23,26 @@ def decoupe_rhese(llm, input_text, model="mistral-large-latest"):
         Voici le texte à découper :
         [{input_text}]
         Merci de suivre ces consignes pour aider l'élève à mieux comprendre le texte.
-    Retourne ta réponse sous la forme d'un dictionnaire json, avec une clé texte_rhèse, qui contient en valeur le texte
+    Retourne ta réponse sous la forme d'un dictionnaire json, avec une clé response, qui contient en valeur le texte
         """
 
         # Appel au modèle de langage pour découper le texte
-        response = llm.invoke(prompt)
-        
+        response = llm.chat.complete(
+            model= model,
+            messages = [
+                {
+                    "role": "user",
+                    "content": prompt
+                },
+            ],
+            response_format = {
+                "type": "json_object",
+            }
+        )
         # Extraction de la réponse du modèle qui est sous forme de AIMessage
-        rhese_output = response.content
-        print(rhese_output)
-        rhese_list = rhese_output["texte_rhèse"]
-        
-        # Transformation de la réponse en liste (si nécessaire)
-        # rhese_list = rhese_output.split("\n")  # Suppose que les rhèses sont séparées par des sauts de ligne
-        # return [rhese.strip() for rhese in rhese_list if rhese.strip()]
+        rhese_output = response.choices[0].message.content
+        rhese_list = json.loads(rhese_output)
+
         return rhese_list
     
     except Exception as e:
