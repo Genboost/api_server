@@ -15,10 +15,14 @@ def test_get_rhese(client):
     response = client.post('/api/get_rhese', json=data)
     
     # Vérifier que le code de statut est 200
-    assert response.status_code == 200
+    assert response.status_code == 200, f"Unexpected status code: {response.status_code}, response data: {response.data}"
+    
+    # Vérifier que l'en-tête Content-Type est application/json
+    assert response.content_type == "application/json", f"Unexpected Content-Type: {response.content_type}, response data: {response.data}"
     
     # Récupérer la réponse JSON
     response_json = response.get_json()
+    assert response_json is not None, f"Response JSON is None. Raw response data: {response.data}"
     
     # Vérifier que la réponse contient les rhèses attendues
     expected_rheses = [
@@ -26,4 +30,4 @@ def test_get_rhese(client):
         "Les oiseaux chantent dans les arbres.",
         "C'est une belle journée."
     ]
-    assert response_json['response'] == expected_rheses
+    assert response_json['response'] == expected_rheses, f"Unexpected response: {response_json}"
