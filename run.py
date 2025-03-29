@@ -3,6 +3,7 @@ from langchain_mistralai.chat_models import ChatMistralAI
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from rhese import decoupe_rhese
+from entites import list_entites
 
 # Get the environment variables
 from dotenv import load_dotenv
