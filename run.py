@@ -42,8 +42,8 @@ def get_entites():
         return jsonify({'error': 'Aucun texte fourni'}), 400
     
     input_text = data['text']
-    #response_text = list_entites(llm, input_text)
-    response_text = ""
+    response_text = list_entites(llm, input_text)
+    # response_text = ""
     return response_text, 200, {'Content-Type': 'application/json'}
 
 
