@@ -1,0 +1,4 @@
+dotenv
+flask
+langchain_mistralai
+pytest
