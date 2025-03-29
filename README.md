@@ -6,7 +6,9 @@ Serveur API pour le moteur linguistique générant les enrichissement
 
 Lancer le serveur avec la commande
 
-`python ./run.py``
+Lancement en local (port 5000 par défaut) : `python ./run.py`
+
+Lancement par Docker (port 5001) : `docker compose up -d --build`
 
 ## Lancement des tests unitaires
 
