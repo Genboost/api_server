@@ -1,13 +1,13 @@
 from responseLLM import responseLLM
 
-def decoupe_rhese(llm, input_text, model="mistral-large-latest"):
+def decoupe_rhese(llm, input_text, model="mistral-small-latest"):
     """
     Découpe un texte en rhèses (unités de sens) en utilisant un LLM.
     
     Args:
         llm (Mistral): Instance du modèle de langage à utiliser.
         text (str): Le texte à découper.
-        model (str): Le modèle de langage à utiliser (par défaut : "mistral-large-latest").
+        model (str): Le modèle de langage à utiliser (par défaut : "mistral-small-latest").
     
     Returns:
         response: un json contenant une variable "response" qui contient la liste des rhèses.

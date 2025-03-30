@@ -1,6 +1,6 @@
 from responseLLM import responseLLM
 
-def list_entites(llm, input_text, model="mistral-large-latest"):
+def list_entites(llm, input_text, model="mistral-small-latest"):
     try:
         prompt = f"""Tu es un spécialiste des dyslexiques depuis 20 ans. 
             Je vais te fournir un texte et tu vas identifier les entités nommées pour pouvoir les indiquer
@@ -45,7 +45,7 @@ def list_entites(llm, input_text, model="mistral-large-latest"):
         print(f"Erreur lors de l'appel au LLM : {e}")
 
 
-def list_definitions(llm, input_text, model="mistral-large-latest"):
+def list_definitions(llm, input_text, model="mistral-small-latest"):
     try:
         prompt = f"""tu es un spécialiste des dyslexique depuis 20 ans. 
             Je vais te fournir un texte et tu vas identifier les mots complexes pour des collégiens 
@@ -75,7 +75,7 @@ def list_definitions(llm, input_text, model="mistral-large-latest"):
         print(f"Erreur lors de l'appel au LLM : {e}")
 
 
-def list_explanations(llm, input_text, model="mistral-large-latest"):
+def list_explanations(llm, input_text, model="mistral-small-latest"):
     try:
         prompt = f"""Tu es un spécialiste des dyslexique depuis 20 ans. 
             Pour rappel une rhèse est un groupe de mots d'une phrase qui porte un sens et cadence le discours.
