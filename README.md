@@ -12,13 +12,16 @@ Lancement en local : `python ./run.py`
 
 Lancement par Docker : `docker compose up -d --build`
 
-## Lancement des tests unitaires
-
-`pytest tests/``
-
 ## Requirements
 
 - dotenv
 - flask
+- flask-cors
 - mistralai
 - pytest
+
+Pour les installer : `pip install -r requirements.txt`
+
+## Lancement des tests unitaires
+
+`pytest tests/`
