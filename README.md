@@ -1,6 +1,8 @@
-# api_server
+# <img src="images/Genboost-avatar-icon.png" alt="Icon" width="20" /> GenBoost api_server
 
-Serveur API pour le moteur linguistique générant les enrichissement
+Serveur API pour le moteur linguistique générant les enrichissements
+
+<img src="images/genboost-avatar-zoom.png" alt="GenBoost Avatar" width="200" />
 
 ## Utilisation
 
