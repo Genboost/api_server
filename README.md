@@ -2,7 +2,7 @@
 
 Serveur API pour le moteur linguistique générant les enrichissements
 
-<img src="images/genboost-avatar-zoom.png" alt="GenBoost Avatar" width="200" />
+<img src="images/Genboost-avatar-zoom.png" alt="GenBoost Avatar" width="200" />
 
 ## Utilisation
 
