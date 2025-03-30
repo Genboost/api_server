@@ -9,6 +9,7 @@ def responseLLM(llm, model, prompt):
         ],
         response_format = {
             "type": "json_object",
-        }
+        },
+        temperature=0,
     )
     return response.choices[0].message.content

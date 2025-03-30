@@ -1,6 +1,6 @@
 from responseLLM import responseLLM
 
-def list_entites(llm, input_text, model="mistral-small-latest"):
+def list_entites(llm, input_text, model="mistral-large-latest"):
     try:
         prompt = f"""Tu es un spécialiste des dyslexiques depuis 20 ans. 
             Je vais te fournir un texte et tu vas identifier les entités nommées pour pouvoir les indiquer
@@ -75,17 +75,18 @@ def list_definitions(llm, input_text, model="mistral-small-latest"):
         print(f"Erreur lors de l'appel au LLM : {e}")
 
 
-def list_explanations(llm, input_text, model="mistral-small-latest"):
+def list_explanations(llm, input_text, model="mistral-large-latest"):
     try:
         prompt = f"""Tu es un spécialiste des dyslexique depuis 20 ans. 
             Pour rappel une rhèse est un groupe de mots d'une phrase qui porte un sens et cadence le discours.
-            Les rhèses que tu vas produire ici seront courtes pour être adaptées à la lecture d'un collégien dyslexique.
+            Les rhèses que tu vas produire ici seront courtes (moins de 7 mots environ) pour être adaptées
+            à la lecture d'un collégien dyslexique.
 
             Je vais te fournir un texte et tu vas détecter :
-            - les mots complexes pour des collégiens dyslexiques (ex. : "phénomène", "scientifique")
-            - les expressions (ex. : "tombé dans les pommes", "mis en vers")
-            - les références à une entité nommée, par exemple par un pronom (ex. : "il", "la") ou
-            une expression (ex. : "la plupart", "les autres")
+            - les mots complexes pour des collégiens dyslexiques (ex. : "phénomène", "scientifique", etc.)
+            - les expressions (ex. : "tombé dans les pommes", "mis en vers", etc.)
+            - les références à une entité nommée, par exemple par un pronom (ex. : "il", "la", etc.), un pronom
+            d'appartenance (ex. : "son", "leur", etc.) ou une expression (ex. : "la plupart", "les autres", etc.)
 
             Tu vas me fournir le texte résultat en respectant le format markdown suivant [mot détecté](complément).
             Tu renseigneras le complément de la manière suivante :
